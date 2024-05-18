@@ -8,6 +8,7 @@ import RegisterForm from "./pages/RegisterForm.jsx";
 import { UserContextProvider } from "./Provider.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/Dashboard.jsx";
+import BoardTasks from "./pages/BoardTasks.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard />,
+  },
+  {
+    path: "/boards/:id",
+    element: <BoardTasks />,
   },
 ]);
 

@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import "dotenv/config";
 import Board from "./models/board.js";
+import Task from "./models/task.js";
 
 var saltRounds = 10;
 const app = express();
@@ -162,6 +163,63 @@ app.get("/boards", async (req, res) => {
 app.delete("/board", async (req, res) => {
   const { id } = req.body;
   const board = await Board.findByIdAndDelete(id);
+  if (!board) {
+    res.status(404).json({ message: "Board not found" });
+  }
   res.status(201).json({ message: "Board Deleted" });
 });
 
+app.get("/board/:id", async (req, res) => {
+  const boardId = req.params.id;
+  const board = await Board.findById(boardId);
+  if (!board) {
+    res.status(404).json({ message: "Board not found" });
+  }
+  console.log(board);
+  res.json(board).status(201);
+});
+
+app.get("/board/:boardId/tasks", async (req, res) => {
+  try {
+    const tasks = await Task.find({ board: req.params.boardId });
+    res.status(200).json(tasks);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.delete("/tasks/:id", async (req, res) => {
+  try {
+    const task = await Task.findByIdAndDelete(req.params.id);
+
+    if (!task) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+
+    res.status(200).json({ message: "Task deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.post("/tasks", async (req, res) => {
+  try {
+    const { title, description, boardId } = req.body;
+    const board = await Board.findById(boardId);
+
+    if (!board) {
+      return res.status(404).json({ message: "Board not found" });
+    }
+
+    const task = new Task({
+      title,
+      description,
+      board: boardId,
+    });
+
+    await task.save();
+    res.status(201).json(task);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});

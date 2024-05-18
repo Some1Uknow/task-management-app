@@ -44,22 +44,30 @@ const BoardList = ({ board }) => {
     <div className="p-6 w-full">
       <h1 className="text-3xl font-bold text-center mb-6">Your Boards</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {boards.map((board) => (
-          <Link
-            //  to={`/boards/${board._id}`}
-            key={board._id}
-            className="block bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow"
-          >
-            <h2 className="text-xl font-semibold">{board.title}</h2>
-            <p>{new Date(board.createdAt).toLocaleString()}</p>
-            <button
-              onClick={() => handleDelete(board._id)}
-              className="p-2 bg-red-500 hover:bg-red-600 text-sm text-white rounded-lg shadow-lg"
-            >
-              Delete Board
-            </button>
-          </Link>
-        ))}
+      {boards.length === 0 ? (
+  <p className="text-center text-gray-500">No boards to show</p>
+) : (
+  boards.map((board) => (
+    <Link
+      to={`/boards/${board._id}`}
+      key={board._id}
+      className="block bg-white shadow-md rounded-lg p-4 mb-4 hover:shadow-lg transition-shadow"
+    >
+      <h2 className="text-xl font-semibold">{board.title}</h2>
+      <p>{new Date(board.createdAt).toLocaleString()}</p>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          handleDelete(board._id);
+        }}
+        className="p-2 mt-2 bg-red-500 hover:bg-red-600 text-sm text-white rounded-lg shadow-lg"
+      >
+        Delete Board
+      </button>
+    </Link>
+  ))
+)}
+
       </div>
     </div>
   );
