@@ -32,30 +32,30 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="flex flex-row items-center justify-between py-5 px-20 ">
-        <p className="flex flex-row items-center text-6xl font-bold font-Chakra text-white">
-          <MdTask className="mr-2 text-7xl " />
+      <div className="flex flex-col md:flex-row items-center justify-between py-2 px-6 md:px-20 bg-gradient-to-r from-slate-800 to-zinc-700">
+        <p className="flex flex-row items-center text-4xl md:text-6xl font-bold text-white font-Chakra">
+          <MdTask className="mr-2 text-5xl md:text-7xl" />
           TaskFlow
         </p>
         {username ? (
-          <div className="flex flex-row gap-4 ">
-            <button className="text-white font-normal">
+          <div className="flex flex-col md:flex-row gap-4 mt-4 md:mt-0">
+            <button className="text-white font-normal text-lg">
               <Link to="/dashboard">Dashboard</Link>
             </button>
             <button
-              className="bg-black p-3 rounded-lg m-0 text-white font-normal"
+              className="bg-black p-2 md:p-3 rounded-lg text-white font-normal text-lg"
               onClick={() => logOut()}
             >
               Logout
             </button>
           </div>
         ) : (
-          <div className="flex flex-row gap-4 ">
-            <button className="text-white font-normal">
+          <div className="flex flex-col md:flex-row gap-4 mt-4 md:mt-0">
+            <button className="text-white font-normal text-lg">
               <Link to="/login">Login</Link>
             </button>
             <Link to="/register">
-              <button className="btn m-0 bg-white p-3 rounded-lg text-black font-normal">
+              <button className="bg-white p-2 md:p-3 rounded-lg text-black font-normal text-lg">
                 Register
               </button>
             </Link>

@@ -52,12 +52,12 @@ export default function RegisterForm() {
   if (redirect) return <Navigate to="/login" />;
 
   return (
-    <div className="w-screen h-screen flex flex-row justify-between bg-gray-200">
+    <div className="w-screen h-screen flex flex-col md:flex-row justify-between bg-gray-200">
       <motion.div
         initial={{ x: "100vw" }}
         animate={{ x: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-1/2 relative h-screen"
+        className="w-full md:w-1/2 relative h-1/2 md:h-screen"
       >
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-90"></div>
         <img
@@ -65,21 +65,21 @@ export default function RegisterForm() {
           src="./home-bg.jpg"
           alt="Background"
         />
-        <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-8xl font-bold flex flex-row items-center">
-          <MdTask className="mr-4 mt-2" />
+        <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-4xl md:text-8xl font-bold flex flex-row items-center">
+          <MdTask className="mr-2 md:mr-4 mt-1 md:mt-2" />
           <Link to="/">Taskflow</Link>
         </h1>
       </motion.div>
-      <div className="flex flex-row justify-center w-1/2 items-center">
-        <div className="flex items-center h-screen w-3/4 ">
+      <div className="flex flex-col justify-center w-full md:w-1/2 items-center">
+        <div className="flex items-center h-full md:h-screen w-full md:w-3/4 p-4 md:p-0">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.5 }}
-            className="w-full rounded shadow-lg p-8 m-4 bg-white flex flex-col items-center"
+            className="w-full rounded shadow-lg p-6 md:p-8 m-4 bg-white flex flex-col items-center"
           >
-            <span className="block w-full text-2xl text-black uppercase font-bold mb-4">
+            <span className="block w-full text-xl md:text-2xl text-black uppercase font-bold mb-4">
               Register
             </span>
             <form
@@ -121,12 +121,12 @@ export default function RegisterForm() {
               </div>
               <button
                 type="submit"
-                className=" bg-black p-3 rounded-lg text-white text-xl w-max px-10"
+                className="bg-black p-3 rounded-lg text-white text-lg md:text-xl w-max px-8 md:px-10"
               >
                 Register
               </button>
             </form>
-            <Link className="text-blue-700 text-center text-sm" to="/login">
+            <Link className="text-blue-700 text-center text-xs md:text-sm" to="/login">
               Already have an account? Login here
             </Link>
           </motion.div>

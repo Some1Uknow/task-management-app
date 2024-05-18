@@ -45,34 +45,34 @@ const BoardList = ({ board }) => {
   }
 
   return (
-    <div className="p-6 w-full">
-      <h1 className="text-4xl font-semibold font-sans text-center mb-6">Your Boards</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {boards.length === 0 ? (
-          <p className="text-center text-gray-500 col-span-full">No boards to show</p>
-        ) : (
-          boards.map((board) => (
-            <Link
-              to={`/boards/${board._id}`}
-              key={board._id}
-              className="relative block bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow"
+    <div className="p-4 md:p-6 w-full">
+    <h1 className="text-2xl md:text-4xl font-semibold font-sans text-center mb-4 md:mb-6">Your Boards</h1>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+      {boards.length === 0 ? (
+        <p className="text-center text-gray-500 col-span-full">No boards to show</p>
+      ) : (
+        boards.map((board) => (
+          <Link
+            to={`/boards/${board._id}`}
+            key={board._id}
+            className="relative block bg-white shadow-md rounded-lg p-4 md:p-6 hover:shadow-lg transition-shadow"
+          >
+            <h2 className="text-lg md:text-xl font-semibold mb-2">{board.title}</h2>
+            <p className="text-gray-500 text-xs md:text-sm mb-4">{new Date(board.createdAt).toLocaleString()}</p>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                handleDelete(board._id);
+              }}
+              className="absolute top-2 md:top-4 right-2 md:right-4 p-2 bg-red-500 hover:bg-red-600 text-white text-xs md:text-sm rounded-lg shadow-lg transition-colors"
             >
-              <h2 className="text-xl font-semibold mb-2">{board.title}</h2>
-              <p className="text-gray-500 text-sm mb-4">{new Date(board.createdAt).toLocaleString()}</p>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleDelete(board._id);
-                }}
-                className="absolute top-4 right-4 p-2 bg-red-500 hover:bg-red-600 text-white text-sm rounded-lg shadow-lg transition-colors"
-              >
-                Delete
-              </button>
-            </Link>
-          ))
-        )}
-      </div>
+              Delete
+            </button>
+          </Link>
+        ))
+      )}
     </div>
+  </div>
   );
 };
 
