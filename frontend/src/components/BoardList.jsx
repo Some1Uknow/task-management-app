@@ -5,6 +5,8 @@ const BoardList = ({ board }) => {
   const [boards, setBoards] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  //fetches the list of boards, based on who is using the app
+
   const fetchBoards = async () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_BASE_URL}/boards`, {
@@ -18,6 +20,8 @@ const BoardList = ({ board }) => {
       setLoading(false);
     }
   };
+
+  //delete the board based on unique id
 
   const handleDelete = async (id) => {
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/board`, {
