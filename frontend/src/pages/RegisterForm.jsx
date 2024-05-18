@@ -9,6 +9,8 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
   const [redirect, setredirect] = useState(false);
 
+  //function to set the input fields - username, email and password
+
   const handleInput = (e) => {
     const { name, value } = e.target;
     if (name === "username") {
@@ -19,6 +21,8 @@ export default function RegisterForm() {
       setPassword(value);
     }
   };
+
+  //function to handle formdata and send it to database
 
   const handleSubmit = async (e) => {
     e.preventDefault();

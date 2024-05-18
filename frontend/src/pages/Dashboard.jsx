@@ -9,6 +9,8 @@ const Dashboard = () => {
   const { user, setUser } = useContext(UserContext);
   const [board, setboard] = useState("");
 
+  //fetching user profile to show details on dashboard
+
   const fetchUserProfile = async () => {
     fetch(`${import.meta.env.VITE_BASE_URL}/profile`, {
       credentials: "include",
@@ -18,6 +20,8 @@ const Dashboard = () => {
       });
     });
   };
+
+  //create a new board by sending data to the backend
 
   const handleSubmit = async (e) => {
     e.preventDefault();

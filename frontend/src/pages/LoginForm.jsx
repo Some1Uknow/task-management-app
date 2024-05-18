@@ -10,6 +10,8 @@ export default function LoginForm() {
   const [redirect, setRedirect] = useState(false);
   const { setUser } = useContext(UserContext);
 
+  //function to handle formdata to send it to backend for login and authentication
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
