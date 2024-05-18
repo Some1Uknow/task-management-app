@@ -6,9 +6,9 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import "dotenv/config";
+import Board from "./models/board.js";
 
 var saltRounds = 10;
-
 const app = express();
 app.use(cookieParser());
 connectDB();
@@ -36,7 +36,9 @@ app.post("/register", async (req, res) => {
   try {
     const existingUser = await User.findOne({ $or: [{ username }, { email }] });
     if (existingUser) {
-     return res.status(400).json({ error: "Username or email already exists" });
+      return res
+        .status(400)
+        .json({ error: "Username or email already exists" });
     }
 
     const hashedPassword = bcrypt.hashSync(password, saltRounds);
@@ -107,5 +109,59 @@ app.get("/profile", (req, res) => {
     }
     res.status(200).json(info);
   });
+});
+
+app.post("/board", async (req, res) => {
+  const { token } = req.cookies;
+  if (!token) {
+    return res.status(401).json({ message: "Token missing" });
+  }
+
+  jwt.verify(token, process.env.JWT, {}, async (err, info) => {
+    if (err) {
+      console.error(err);
+      return res.status(401).json({ message: "Invalid token" });
+    }
+
+    const { board } = req.body;
+    const { id } = info;
+    console.log(id);
+
+    try {
+      const newBoard = await Board.create({ title: board, user: id });
+      res.status(201).json(newBoard);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error creating board" });
+    }
+  });
+});
+
+app.get("/boards", async (req, res) => {
+  const { token } = req.cookies;
+  if (!token) {
+    return res.status(401).json({ message: "Token missing" });
+  }
+
+  jwt.verify(token, process.env.JWT, {}, async (err, info) => {
+    if (err) {
+      console.error(err);
+      return res.status(401).json({ message: "Invalid token" });
+    }
+    const { id } = info;
+    try {
+      const boards = await Board.find({ user: id });
+      res.status(200).json(boards);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to fetch boards" });
+    }
+  });
+});
+
+app.delete("/board", async (req, res) => {
+  const { id } = req.body;
+  const board = await Board.findByIdAndDelete(id);
+  res.status(201).json({ message: "Board Deleted" });
 });
 

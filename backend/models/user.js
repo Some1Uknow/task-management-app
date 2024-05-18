@@ -15,10 +15,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    bio: {
-      type: String,
-      default: "No bio yet",
-    },
   },
   { timestamps: true }
 );
