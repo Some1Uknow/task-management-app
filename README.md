@@ -87,7 +87,7 @@ To get a local copy up and running, follow these steps:
 3. Create a `.env` file in the `frontend` directory and add the following environment variable:
 
     ```env
-    VITE_BASE_URL=http://localhost:5000/api
+    VITE_BASE_URL=backend_url
     ```
 
 4. Start the frontend development server:
